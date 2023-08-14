@@ -8,7 +8,6 @@ import Bottombar from '@/components/shared/Bottombar'
 import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
-const clerk_pub_key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export const metadata ={
   title:"Threads",
@@ -21,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider publishableKey={clerk_pub_key}>
+    <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
         <Topbar/>
