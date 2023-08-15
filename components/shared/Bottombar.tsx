@@ -18,7 +18,7 @@ const Bottombar = () => {
           <Link 
             href={link.route}
             key={link.label}
-            className={`bottombar_link ${isActive && 'bg-primary-500'}`}
+            className={`bottombar_link ${isActive && 'bg-tertiary-500'}`}
           >
             <Image
               src={link.imgURL}

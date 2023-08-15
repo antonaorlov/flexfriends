@@ -7,27 +7,25 @@ const Topbar = () => {
   return (
     <nav className='topbar'>
       <Link href='/' className='flex items-center gap-4'>
-        <Image src='/assets/logo.svg' alt='logo' width={28} height={28} />
-        <p className='text-heading3-bold text-light-1 max-xs:hidden'>Threads</p>
+        <p className='text-heading3-bold text-justify text-light-1'>Threads</p>
       </Link>
 
-      <div className='flex items-center gap-1'>
+      <div className='flex items-center gap-1 text-white'>
         <div>
           <SignedIn>
             <SignOutButton>
-              <div className='flex cursor-pointer'>
+              <div className='flex cursor-pointer px-3 md:hidden'>
                 <Image
                   src='/assets/logout.svg'
                   alt='logout'
-                  width={24}
-                  height={24}
+                  width={27}
+                  height={27}
                 />
-                Logout
               </div>
             </SignOutButton>
           </SignedIn>
         </div>
-
+        {/* <div className='invisible max-[390]:visible'> */}
         <OrganizationSwitcher
           appearance={{
             baseTheme:dark,
@@ -36,6 +34,7 @@ const Topbar = () => {
             },
           }}
         />
+        {/* </div> */}
       </div>
     </nav>
   )
