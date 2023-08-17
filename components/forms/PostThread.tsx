@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useOrganization } from "@clerk/nextjs";
 import {
   Form,
   FormControl,
@@ -42,7 +42,9 @@ const PostThread = ({userId}:{userId:string}) => {
   
     const router = useRouter()
     const pathname = usePathname()
-  
+    const {organization} = useOrganization()
+    
+    
   
     const form = useForm<z.infer<typeof ThreadValidation>>({
       resolver: zodResolver(ThreadValidation),
@@ -52,11 +54,15 @@ const PostThread = ({userId}:{userId:string}) => {
       },
     });
     const onSubmit = async(values: z.infer<typeof ThreadValidation>)=>{
-        await createThread(
+      console.log('Org ID:',organization);
+      console.log("HEllo")
+      
+        
+      await createThread(
         {
             text: values.thread,
             author: userId,
-            communityId:null,
+            communityId: organization ? organization.id : null,
             path:pathname
 
         
