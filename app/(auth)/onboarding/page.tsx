@@ -1,27 +1,24 @@
 import { currentUser } from '@clerk/nextjs';
 import AccountProfile from "@/components/forms/AccountProfile";
 import { redirect } from 'next/navigation';
+import { fetchUser } from '@/lib/actions/user.actions';
 
 async function Page() {
 
-const user = await currentUser();
+  const user = await currentUser();
+  if (!user) return null;
 
-if (!user) redirect("/signin");
-
-
-
-  const userInfo = {};
+  const userInfo = await fetchUser(user.id);
+  if (userInfo?.onboarded) redirect("/");
 
   const userData = {
-    id: user?.id,
-    objectId:userInfo?.id,
-    username: userInfo?.username || user?.username,
-    name: userInfo.name || user?.firstName || "",
-    bio: userInfo?.bio || "",
-    image:userInfo?.image || user?.imageUrl,
-
-
-}
+    id: user.id,
+    objectId: userInfo?._id,
+    username: userInfo ? userInfo?.username : user.username,
+    name: userInfo ? userInfo?.name : user.firstName ?? "",
+    bio: userInfo ? userInfo?.bio : "",
+    image: userInfo ? userInfo?.image : user.imageUrl,
+  };
 
   return (
     <main className='mx-auto flex max-w-3xl flex-col justify-start px-10 py-20'>
